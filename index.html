@@ -226,6 +226,37 @@ tbody tr:nth-child(even) td{background:#f8fafc}
 .bitacora div{margin-bottom:6px}.bitacora small{color:var(--gray);font-weight:700}
 .cat-ta{min-height:220px}
 .oculto-rol{display:none!important}
+/* INICIO DE SESIÓN */
+body.sin-sesion>header,body.sin-sesion>nav,body.sin-sesion>main,body.sin-sesion>footer{display:none}
+#modal-login{padding:0;align-items:stretch;justify-content:center;background:linear-gradient(160deg,#1da8ea 0%,#005eff 55%,#6d3cf0 100%)}
+.login-wrap{width:100%;min-width:0;max-width:460px;display:flex;flex-direction:column;min-height:100%;overflow-y:auto;overflow-x:hidden;background:#fff}
+.login-top{position:relative;color:#fff;text-align:center;padding:46px 20px 78px;background:linear-gradient(160deg,#1da8ea 0%,#005eff 55%,#6d3cf0 100%)}
+.login-logo{width:88px;height:88px;border-radius:24px;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.login-t1{font-size:20pt;font-weight:800;margin-top:14px;letter-spacing:-.4px}
+.login-t2{font-size:9.5pt;opacity:.88;margin-top:4px}
+.login-wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:52px;display:block}
+.login-body{background:#fff;padding:2px 24px 24px;flex:1;min-width:0;text-align:center}
+.login-body h2{font-size:17pt;color:#334155;font-weight:800;margin:6px 0 2px}
+.login-body p{font-size:9.5pt;color:#8a94a0;margin-bottom:18px}
+.login-field{display:flex;align-items:center;gap:10px;background:#f1f4f9;border-radius:999px;padding:0 16px;margin-bottom:12px;border:1.5px solid transparent;transition:.15s}
+.login-field:focus-within{border-color:#1da8ea;background:#fff;box-shadow:0 0 0 4px rgba(29,168,234,.12)}
+.login-field>i{color:#8a94a0;width:16px;text-align:center}
+.login-field input{flex:1;border:none;background:transparent;padding:15px 0;font-size:11pt;outline:none;min-width:0;color:#0f172a}
+.login-eye{border:none;background:none;color:#8a94a0;font-size:15px;padding:6px}
+.login-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 8px;font-size:8.5pt;color:#556070;margin:2px 4px 12px}
+.login-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.login-row a{color:#005eff;font-weight:700;cursor:pointer}
+#lg-err{color:#c0392b;font-size:9pt;font-weight:700;min-height:20px;margin-bottom:6px}
+.login-btn{width:100%;border:none;border-radius:999px;padding:15px;font-size:11pt;font-weight:800;color:#fff;background:linear-gradient(135deg,#1da8ea,#005eff 60%,#6d3cf0);box-shadow:0 8px 22px rgba(0,94,255,.35);transition:.15s}
+.login-btn:hover{transform:translateY(-1px)}.login-btn:disabled{opacity:.6;transform:none}
+.login-or{display:flex;align-items:center;gap:12px;color:#aab4be;font-size:8.5pt;margin:16px 0 12px}
+.login-or::before,.login-or::after{content:'';flex:1;height:1px;background:#e1e8f0}
+.login-btn-sec{width:100%;border:1.5px solid #1da8ea;background:#fff;color:#005eff;border-radius:999px;padding:13px;font-size:10pt;font-weight:700}
+.login-foot{margin-top:22px;font-size:7.5pt;color:#aab4be}
+@media(min-width:700px){
+  #modal-login{align-items:center;padding:24px}
+  .login-wrap{min-height:0;max-height:94vh;border-radius:30px;overflow:hidden;box-shadow:0 30px 80px rgba(15,23,42,.45)}
+}
 .tb-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))!important}
 .filtros-row .field,.form-grid .field{min-width:0}
 .filtros-row select,.filtros-row input,.form-grid select,.form-grid input,.form-grid textarea{width:100%;min-width:0}
@@ -689,17 +720,28 @@ tbody tr:nth-child(even) td{background:#f8fafc}
 
 </main>
 
-<!-- MODAL INICIO DE SESIÓN (modo en línea) -->
+<!-- INICIO DE SESIÓN (modo en línea) -->
 <div class="modal-overlay" id="modal-login" style="z-index:300">
-  <div class="modal" style="max-width:380px">
-    <h3><span><i class="fa-solid fa-lock"></i> Atención Ciudadana</span></h3>
-    <p class="muted" style="margin-bottom:12px">Inicia sesión para trabajar con las solicitudes compartidas.</p>
-    <div class="field" style="margin-bottom:10px"><label>Usuario</label><input type="text" id="lg-u" autocomplete="username" placeholder="recepcion, analista, obras…" onkeydown="if(event.key==='Enter')$('lg-p').focus()"/></div>
-    <div class="field" style="margin-bottom:6px"><label>Contraseña</label><input type="password" id="lg-p" autocomplete="current-password" onkeydown="if(event.key==='Enter')entrarNube()"/></div>
-    <div id="lg-err" style="color:#c0392b;font-size:9pt;font-weight:700;min-height:18px;margin-bottom:6px"></div>
-    <div class="modal-actions" style="justify-content:space-between;margin-top:6px">
-      <button class="btn btn-sm btn-secondary" id="lg-local" onclick="usarModoLocal()" title="Trabajar solo en este equipo, sin compartir datos">Modo local</button>
-      <button class="btn btn-primary" id="lg-btn" onclick="entrarNube()"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+  <div class="login-wrap">
+    <div class="login-top">
+      <img src="icono.svg" class="login-logo" alt="" onerror="this.style.display='none'"/>
+      <div class="login-t1">Atención Ciudadana</div>
+      <div class="login-t2">H. Ayuntamiento de Ixhuatlán del Café</div>
+      <svg class="login-wave" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0,28 C70,68 150,2 235,26 C300,44 350,52 400,24 L400,60 L0,60 Z" fill="#7c3aed" opacity=".35"/><path d="M0,38 C80,70 160,10 245,34 C305,50 355,56 400,36 L400,60 L0,60 Z" fill="#ffffff"/></svg>
+    </div>
+    <div class="login-body">
+      <h2>¡Bienvenido!</h2>
+      <p>Inicia sesión para continuar</p>
+      <div class="login-field"><i class="fa-solid fa-user"></i><input type="text" id="lg-u" autocomplete="username" autocapitalize="none" placeholder="Usuario" onkeydown="if(event.key==='Enter')$('lg-p').focus()"/></div>
+      <div class="login-field"><i class="fa-solid fa-lock"></i><input type="password" id="lg-p" autocomplete="current-password" placeholder="Contraseña" onkeydown="if(event.key==='Enter')entrarNube()"/><button type="button" class="login-eye" id="lg-eye" onclick="verPassword()" aria-label="Mostrar contraseña"><i class="fa-regular fa-eye"></i></button></div>
+      <div class="login-row"><label><input type="checkbox" id="lg-rec" checked/> Recordar usuario</label><a onclick="olvidePassword()">¿Olvidaste tu contraseña?</a></div>
+      <div id="lg-err"></div>
+      <button class="login-btn" id="lg-btn" onclick="entrarNube()">Entrar</button>
+      <div id="lg-alt">
+        <div class="login-or"><span>o</span></div>
+        <button class="login-btn-sec" id="lg-local" onclick="usarModoLocal()" title="Trabajar solo en este equipo, sin compartir datos">Trabajar en modo local</button>
+      </div>
+      <div class="login-foot">© 2026 H. Ayuntamiento de Ixhuatlán del Café</div>
     </div>
   </div>
 </div>
@@ -3224,7 +3266,16 @@ async function compartirPDF(id,tipo){
     const blob=await pdfDocumento(s,tipo),nombre=`${tipo==='respuesta'?'Respuesta':'Acuse'}_${s.folio}.pdf`,texto=textoWhatsApp(s,tipo);
     const file=new File([blob],nombre,{type:'application/pdf'});
     let compartido=false;
-    if(navigator.canShare&&navigator.canShare({files:[file]})){
+    const cap=window.Capacitor,nativa=cap&&cap.isNativePlatform&&cap.isNativePlatform()&&cap.Plugins&&cap.Plugins.Share&&cap.Plugins.Filesystem;
+    if(nativa){   // dentro de la APK: se guarda el PDF y se abre el menú de compartir de Android
+      try{
+        const b64=await new Promise((ok,mal)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(',')[1]);r.onerror=mal;r.readAsDataURL(blob);});
+        const w=await cap.Plugins.Filesystem.writeFile({path:nombre,data:b64,directory:'CACHE'});
+        await cap.Plugins.Share.share({title:nombre,text:texto,files:[w.uri],dialogTitle:'Enviar PDF'});
+        compartido=true;
+      }catch(e){if(/cancel/i.test((e&&e.message)||''))return;console.error(e);}
+    }
+    if(!compartido&&navigator.canShare&&navigator.canShare({files:[file]})){
       try{await navigator.share({files:[file],title:nombre,text:texto});compartido=true;}
       catch(e){if(e&&e.name==='AbortError')return;}
     }
@@ -3772,9 +3823,12 @@ async function subirCatalogos(){
 }
 
 /* --- Sesión y pantalla de entrada --- */
-function mostrarLogin(on){const m=$('modal-login');if(on)m.classList.add('open');else m.classList.remove('open');}
+function mostrarLogin(on){const m=$('modal-login');if(on)m.classList.add('open');else m.classList.remove('open');document.body.classList.toggle('sin-sesion',!!on);}
+function verPassword(){const i=$('lg-p'),ver=i.type==='password';i.type=ver?'text':'password';$('lg-eye').innerHTML=`<i class="fa-regular ${ver?'fa-eye-slash':'fa-eye'}"></i>`;}
+function olvidePassword(){toast('Pide a la oficina que restablezca tu contraseña. Si ya tienes acceso, cámbiala con el botón «Contraseña».','ok');}
 function iniciarNube(){
-  $('lg-local').style.display='';
+  try{const u=localStorage.getItem('ac_ultimo_usuario');if(u)$('lg-u').value=u;}catch(e){}
+  if(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())$('lg-alt').style.display='none';   // en la APK no hay modo local
   if(sesN()){abrirNube().catch(e=>{console.error(e);mostrarLogin(true);});}
   else mostrarLogin(true);
 }
@@ -3792,6 +3846,7 @@ async function entrarNube(){
     const d=await r.json().catch(()=>({}));
     if(!r.ok){$('lg-err').textContent=r.status===400?'Usuario o contraseña incorrectos.':'No se pudo iniciar sesión ('+r.status+').';return;}
     guardarSesionN(d);$('lg-p').value='';
+    try{if($('lg-rec').checked)localStorage.setItem('ac_ultimo_usuario',u.trim());else localStorage.removeItem('ac_ultimo_usuario');}catch(e){}
     await abrirNube();
   }catch(e){$('lg-err').textContent='Sin conexión con el servidor. Revisa tu internet.';}
   finally{$('lg-btn').disabled=false;}
