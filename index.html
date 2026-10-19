@@ -293,6 +293,72 @@ body.sin-sesion>header,body.sin-sesion>nav,body.sin-sesion>main,body.sin-sesion>
 .sol-desc{max-width:260px;overflow-wrap:anywhere}
 .aviso{max-width:1400px;margin:28px auto 16px;padding:12px 16px 0;border-top:1px solid #dfe5ec;text-align:center;font-size:8pt;color:#8a94a0;line-height:1.5}
 @media print{.aviso{display:none}}
+/* ===== APP MÓVIL (analista y coordinador en celular / APK): inicio con atajos y barra inferior ===== */
+body:not(.app-mov) #tab-inicio,body:not(.app-mov) #tab-cuenta{display:none!important}
+#bnav{display:none}
+.mv-only{display:none}
+body.app-mov{padding-bottom:96px;background:#f1f5fb}
+body.app-mov>header,body.app-mov>nav,body.app-mov>footer,body.app-mov .aviso{display:none}
+body.app-mov main{padding:0 12px;margin:0 auto}
+body.app-mov .tab-section:not(#tab-inicio):not(#tab-cuenta){padding-top:12px}
+body.app-mov #bnav{display:flex}
+body.sin-sesion #bnav{display:none!important}
+body.app-mov #toast-container{bottom:100px}
+body.app-mov .mv-only{display:inline-block}
+body.app-mov #tab-solicitudes>.section-banner,body.app-mov #tab-solicitudes>.card:has(#pend-areas){display:none}
+body.app-mov #sol-form-card{display:none}
+body.app-mov.form-abierto #sol-form-card{display:block}
+body.app-mov.form-abierto #tab-solicitudes>.card:not(#sol-form-card),body.app-mov.form-abierto #tab-solicitudes>.section-banner{display:none}
+.mv-hero{margin:0 -12px;background:linear-gradient(160deg,#1da8ea 0%,#005eff 60%,#6d3cf0 100%);color:#fff;padding:max(16px,env(safe-area-inset-top)) 18px 70px;border-radius:0 0 30px 30px}
+.mv-hero.chico{padding-bottom:36px;text-align:center}
+.mv-hero.chico+.mv-card.sube{margin-top:-18px}
+.mv-top{display:flex;align-items:center;gap:8px}
+.mv-dot{width:11px;height:11px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.35);flex-shrink:0}
+.mv-dot.off{background:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.35)}
+.mv-brand{flex:1;text-align:center;font-weight:800;font-size:13pt;letter-spacing:-.2px}
+.mv-bell{position:relative;background:none;border:none;color:#fff;font-size:19px;padding:4px 6px}
+.mv-bell b{position:absolute;top:-3px;right:-4px;background:#ef4444;color:#fff;font-size:7pt;border-radius:9px;padding:1px 5px;font-weight:800}
+.mv-hello{text-align:center;margin-top:16px;font-size:10pt;opacity:.92}
+.mv-rol{text-align:center;font-size:8pt;opacity:.75;margin-top:1px}
+.mv-saldo{text-align:center;margin-top:12px}
+.mv-saldo small{display:block;font-size:8.5pt;opacity:.85}
+.mv-saldo-n{font-size:27pt;font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.mv-pill{margin-top:10px;border:1.5px solid rgba(255,255,255,.9);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:9px 26px;font-weight:700;font-size:9pt}
+.mv-card{background:#fff;border-radius:22px;box-shadow:0 10px 30px rgba(15,23,42,.12);padding:16px 8px;margin:0 4px 14px}
+.mv-card.sube{margin-top:-46px;position:relative}
+.mv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 2px}
+.mv-it{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:7.5pt;font-weight:700;color:#334155;text-align:center;line-height:1.15;min-width:0;padding:0 2px}
+.mv-ic{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff;position:relative;box-shadow:0 6px 14px rgba(15,23,42,.18)}
+.mv-ic b{position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;border-radius:10px;background:#ef4444;color:#fff;font-size:7.5pt;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff}
+.g-b{background:linear-gradient(135deg,#1da8ea,#005eff)}.g-t{background:linear-gradient(135deg,#22d3ee,#0891b2)}.g-p{background:linear-gradient(135deg,#a78bfa,#6d3cf0)}
+.g-g{background:linear-gradient(135deg,#34d399,#1a7a4c)}.g-a{background:linear-gradient(135deg,#fcd34d,#e0a800)}.g-r{background:linear-gradient(135deg,#fb7185,#c0392b)}
+.mv-sec{display:flex;justify-content:space-between;align-items:center;margin:4px 10px 8px;font-weight:800;font-size:11pt;color:#1d4ed8}
+.mv-sec a{font-size:8.5pt;font-weight:700;color:#64748b;cursor:pointer}
+.mv-res{display:grid;grid-template-columns:1fr 1fr;padding:0;overflow:hidden}
+.mv-res-c{display:flex;align-items:center;gap:10px;padding:16px 14px;background:none;border:none;text-align:left}
+.mv-res-c:first-child{border-right:1px solid #e8eef6}
+.mv-res-c i{font-size:20px}
+.mv-res-c span{display:block;font-size:8pt;color:#64748b;font-weight:700}
+.mv-res-c b{font-size:15pt;color:#0f172a}
+.mv-res-f{grid-column:1/-1;border-top:1px solid #e8eef6;background:#f8fafd;text-align:center;padding:9px;font-size:9pt;font-weight:700;color:#475569}
+.mv-res-f b{color:#1a7a4c;margin-left:4px}
+.mv-fila{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-bottom:1px solid #eef2f7;padding:11px 8px;text-align:left;font-size:9.5pt;font-weight:700;color:#334155}
+.mv-fila:last-child{border-bottom:none}
+.mv-fila span{flex:1;min-width:0;overflow-wrap:anywhere}
+.mv-fila b{background:#e0ecff;color:#1d4ed8;border-radius:12px;padding:2px 11px;font-size:9pt}
+.mv-sol{display:block;width:100%;text-align:left;background:#fff;border:none;border-radius:18px;box-shadow:0 4px 16px rgba(15,23,42,.08);padding:12px 14px;margin:0 4px 10px;max-width:calc(100% - 8px)}
+.mv-sol .r1{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+.mv-sol .r1 strong{font-size:10pt;color:#0f172a}
+.mv-sol .r2{font-size:9.5pt;font-weight:700;color:#334155}
+.mv-sol .r3{font-size:8.5pt;color:#64748b;margin-top:3px;overflow-wrap:anywhere}
+.mv-av{width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.22);border:3px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;font-size:21pt;font-weight:800;margin:14px auto 10px}
+#bnav{position:fixed;left:0;right:0;bottom:0;z-index:90;background:#fff;box-shadow:0 -6px 24px rgba(15,23,42,.14);border-radius:24px 24px 0 0;padding:6px 6px calc(8px + env(safe-area-inset-bottom));align-items:flex-end;justify-content:space-around}
+#bnav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;color:#8a94a0;font-size:7.5pt;font-weight:700;padding:6px 0;position:relative;min-width:0}
+#bnav button i{font-size:19px}
+#bnav button.on{color:#005eff}
+#bnav button em{position:absolute;top:0;left:calc(50% + 6px);background:#ef4444;color:#fff;font-style:normal;font-size:7pt;font-weight:800;border-radius:9px;padding:0 5px;min-width:16px;text-align:center}
+#bnav .fab{flex:0 0 66px;width:66px;height:66px;margin-top:-34px;border-radius:50%;background:linear-gradient(135deg,#1da8ea,#005eff 60%,#6d3cf0);box-shadow:0 8px 20px rgba(0,94,255,.45);border:4px solid #fff;justify-content:center;padding:0}
+#bnav .fab i{font-size:24px;color:#fff}
 </style>
 </head>
 <body>
@@ -322,6 +388,34 @@ body.sin-sesion>header,body.sin-sesion>nav,body.sin-sesion>main,body.sin-sesion>
 </nav>
 
 <main>
+
+<!-- ============ INICIO Y CUENTA (solo app móvil: analista y coordinador) ============ -->
+<section id="tab-inicio" class="tab-section">
+  <div class="mv-hero">
+    <div class="mv-top"><span class="mv-dot" id="mv-dot"></span><div class="mv-brand">Atención Ciudadana</div>
+      <button class="mv-bell" onclick="irSolMov('_resp')" aria-label="Respuestas nuevas"><i class="fa-regular fa-bell"></i><b id="mv-bell-n" style="display:none"></b></button></div>
+    <div class="mv-hello">Hola, <strong id="mv-nombre"></strong></div>
+    <div class="mv-rol" id="mv-rol"></div>
+    <div class="mv-saldo"><small>Solicitudes registradas</small><div class="mv-saldo-n" id="mv-total">0</div>
+      <button class="mv-pill" onclick="irSolMov('')">Ver todas</button></div>
+  </div>
+  <div class="mv-card sube"><div class="mv-grid" id="mv-grid"></div></div>
+  <div class="mv-sec">Resumen</div>
+  <div class="mv-card mv-res" id="mv-res"></div>
+  <div class="mv-sec">Pendientes por área</div>
+  <div class="mv-card" id="mv-areas" style="padding:6px 8px"></div>
+  <div class="mv-sec">Últimas solicitudes <a onclick="irSolMov('')">Ver todas</a></div>
+  <div id="mv-ultimas"></div>
+</section>
+<section id="tab-cuenta" class="tab-section">
+  <div class="mv-hero chico"><div class="mv-av" id="mv-av"></div><div style="font-weight:800;font-size:13pt" id="mv-cn"></div><div class="mv-rol" id="mv-cr"></div></div>
+  <div class="mv-card sube" style="padding:6px 8px">
+    <button class="mv-fila" onclick="abrirPassword()"><i class="fa-solid fa-key" style="color:#005eff"></i><span>Cambiar contraseña</span></button>
+    <button class="mv-fila" id="mv-btn-personal" onclick="openModal('modal-personal')"><i class="fa-solid fa-users" style="color:#6d3cf0"></i><span>Personal</span></button>
+    <button class="mv-fila" onclick="actualizarMov()"><i class="fa-solid fa-rotate" style="color:#0891b2"></i><span>Actualizar datos ahora</span></button>
+    <button class="mv-fila" onclick="salirNube()"><i class="fa-solid fa-right-from-bracket" style="color:#c0392b"></i><span>Cerrar sesión</span></button>
+  </div>
+</section>
 
 <section id="tab-planeacion" class="tab-section active">
 
@@ -628,7 +722,7 @@ body.sin-sesion>header,body.sin-sesion>nav,body.sin-sesion>main,body.sin-sesion>
     <p class="muted" style="margin-top:8px">El acumulativo cuenta hasta la fecha de corte; las solicitudes que se registren después se suman solas al acumulativo del Tablero.</p>
   </div>
 
-  <div class="card" data-roles="admin,recepcion,analista,coordinador">
+  <div class="card" id="sol-form-card" data-roles="admin,recepcion,analista,coordinador">
     <h2 id="sol-form-titulo"><i class="fa-solid fa-plus"></i> Registrar solicitud</h2>
     <input type="hidden" id="sol-id"/>
     <div class="form-grid">
@@ -648,6 +742,7 @@ body.sin-sesion>header,body.sin-sesion>nav,body.sin-sesion>main,body.sin-sesion>
     <div class="form-actions">
       <button class="btn btn-primary" onclick="guardarSolicitud()"><i class="fa-solid fa-floppy-disk"></i> Guardar solicitud</button>
       <button class="btn btn-secondary" id="sol-btn-cancelar" style="display:none" onclick="limpiarFormSolicitud()">Cancelar edición</button>
+      <button class="btn btn-secondary mv-only" onclick="limpiarFormSolicitud()">Volver</button>
     </div>
   </div>
 
@@ -719,6 +814,7 @@ body.sin-sesion>header,body.sin-sesion>nav,body.sin-sesion>main,body.sin-sesion>
 </section>
 
 </main>
+<div id="bnav"></div>
 
 <!-- INICIO DE SESIÓN (modo en línea) -->
 <div class="modal-overlay" id="modal-login" style="z-index:300">
@@ -3045,6 +3141,7 @@ function guardarCatalogos(){
 
 /* --- Solicitudes --- */
 function limpiarFormSolicitud(){
+  cerrarFormMov();
   $('sol-id').value='';$('sol-fecha').value=hoyISO();
   ['sol-nombre','sol-telefono','sol-referencia','sol-descripcion','sol-limite'].forEach(i=>$(i).value='');
   ['sol-comunidad','sol-tipo','sol-area'].forEach(i=>$(i).value='');
@@ -3087,6 +3184,7 @@ async function guardarSolicitud(){
 }
 function editarSolicitud(id){
   const s=getSol().find(x=>x.id===id);if(!s)return;
+  abrirFormMov();
   $('sol-id').value=s.id;
   $('sol-fecha').value=s.fecha;$('sol-medio').value=s.medio||'';$('sol-nombre').value=s.nombre;$('sol-telefono').value=s.telefono||'';
   $('sol-comunidad').value=s.comunidad;$('sol-referencia').value=s.referencia||'';$('sol-tipo').value=s.tipo;$('sol-prioridad').value=s.prioridad||'Normal';$('sol-personas').value=s.personas||1;
@@ -3120,6 +3218,7 @@ function solFiltradas(){
 }
 function renderSolicitudes(){
   const todas=getSol(),lista=solFiltradas();
+  if(document.body.classList.contains('app-mov'))renderInicioMov();
   renderEtapas();
   $('sol-contador').textContent=`(${lista.length} de ${todas.length})`;
   if(!lista.length){$('sol-tabla-wrap').innerHTML='<div class="empty-state">No hay solicitudes que coincidan.</div>';renderPendientesArea();return;}
@@ -3774,7 +3873,7 @@ async function refrescarNube(forzar){
     if(e.sesion){mostrarLogin(true);}
   }finally{SINCRONIZANDO=false;}
 }
-function pintarRed(on){const el=$('hdr-user');if(!el||!NUBE||!PERFIL)return;el.textContent=`${on?'🟢':'🔴'} ${PERFIL.nombre} · ${ROLES[PERFIL.rol]}`;el.title=on?'Conectado':'Sin conexión con el servidor';}
+function pintarRed(on){const dm=$('mv-dot');if(dm)dm.classList.toggle('off',!on);const el=$('hdr-user');if(!el||!NUBE||!PERFIL)return;el.textContent=`${on?'🟢':'🔴'} ${PERFIL.nombre} · ${ROLES[PERFIL.rol]}`;el.title=on?'Conectado':'Sin conexión con el servidor';}
 function iniciarPoll(){
   if(POLL)clearInterval(POLL);
   POLL=setInterval(()=>refrescarNube(),30000);
@@ -3909,7 +4008,83 @@ function aplicarRol(){
   etiquetasPorRol();ajustarOpcionesEstatus();
   if(r!=='admin'){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
     const nb=document.querySelector('[data-tab=solicitudes]');nb.classList.add('active');$('tab-solicitudes').classList.add('active');}
+  aplicarModoMovil();
 }
+
+/* --- App móvil: pantalla de inicio con atajos y barra inferior (analista y coordinador) --- */
+function esPantallaMovil(){return window.matchMedia&&window.matchMedia('(max-width:700px)').matches;}
+function abrirFormMov(){if(document.body.classList.contains('app-mov'))document.body.classList.add('form-abierto');}
+function cerrarFormMov(){document.body.classList.remove('form-abierto');}
+function irTabMov(t){
+  cerrarFormMov();
+  document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+  const el=$('tab-'+t);if(el)el.classList.add('active');
+  document.querySelectorAll('#bnav [data-bt]').forEach(b=>b.classList.toggle('on',b.dataset.bt===t));
+  if(t==='inicio')renderInicioMov();
+  window.scrollTo(0,0);
+}
+function irSolMov(v,rez,area){
+  $('f-sol-estatus').value=v||'';$('f-sol-rezago').value=rez||'';$('f-sol-area').value=area||'';$('f-sol-q').value='';
+  irTabMov('solicitudes');renderSolicitudes();
+}
+function nuevaSolMov(){irTabMov('solicitudes');limpiarFormSolicitud();abrirFormMov();window.scrollTo(0,0);}
+function buscarMov(){irSolMov('');setTimeout(()=>{const q=$('f-sol-q');q.scrollIntoView({block:'center'});q.focus();},50);}
+async function actualizarMov(){try{await refrescarNube(true);renderAC();toast('✅ Datos actualizados','ok');}catch(e){toast('⚠️ No se pudo actualizar','error');}}
+function renderBnav(){
+  const n=getSol().filter(esNuevaResp).length,cord=rolActual()==='coordinador';
+  const b=(t,ic,tx,fn,extra)=>`<button data-bt="${t}" onclick="${fn}"><i class="fa-solid ${ic}"></i><span>${tx}</span>${extra||''}</button>`;
+  $('bnav').innerHTML=b('inicio','fa-house','Inicio',"irTabMov('inicio')")
+    +b('solicitudes','fa-inbox','Solicitudes',"irSolMov('')")
+    +'<button class="fab" onclick="nuevaSolMov()" aria-label="Nueva solicitud"><i class="fa-solid fa-plus"></i></button>'
+    +(cord?b('tablero','fa-chart-pie','Tablero',"irTabMov('tablero')")
+          :b('resp','fa-envelope-open-text','Respuestas',"irSolMov('_resp')",n?`<em>${n}</em>`:''))
+    +b('cuenta','fa-user','Cuenta',"irTabMov('cuenta')");
+  const act=document.querySelector('.tab-section.active');if(act){const x=$('bnav').querySelector(`[data-bt="${act.id.replace('tab-','')}"]`);if(x)x.classList.add('on');}
+}
+function renderInicioMov(){
+  if(!PERFIL)return;
+  const todas=getSol(),cord=rolActual()==='coordinador';
+  const nComp=todas.filter(s=>!s.tipo).length,nArea=todas.filter(s=>s.area&&!esResuelta(s)).length,nResp=todas.filter(esResuelta).length,nNuevas=todas.filter(esNuevaResp).length;
+  const nVenc=todas.filter(s=>semaforo(s).estado==='vencida').length,nPV=todas.filter(s=>semaforo(s).estado==='porvencer').length;
+  const nom=PERFIL.nombre||'';
+  $('mv-nombre').textContent=nom.split(' ')[0]||'';$('mv-rol').textContent=(ROLES[PERFIL.rol]||PERFIL.rol)+' · H. Ayuntamiento de Ixhuatlán del Café';
+  $('mv-total').textContent=todas.length.toLocaleString('es-MX');
+  const bell=$('mv-bell-n');bell.style.display=nNuevas?'':'none';bell.textContent=nNuevas;
+  const it=(ic,tx,fn,g,n)=>`<button class="mv-it" onclick="${fn}"><span class="mv-ic ${g}"><i class="fa-solid ${ic}"></i>${n?`<b>${n}</b>`:''}</span>${tx}</button>`;
+  let g=it('fa-plus','Nueva solicitud','nuevaSolMov()','g-b')
+    +it('fa-pen-to-square','Por complementar',"irSolMov('_comp')",'g-t',nComp)
+    +it('fa-share-from-square','Con el área',"irSolMov('_area')",'g-p',nArea)
+    +it('fa-circle-check','Atendidas',"irSolMov('_resp')",'g-g')
+    +it('fa-envelope-open-text','Respuestas nuevas',"irSolMov('_resp')",'g-a',nNuevas)
+    +it('fa-triangle-exclamation','Vencidas',"irSolMov('','vencidas')",'g-r',nVenc)
+    +it('fa-hourglass-half','Por vencer',"irSolMov('','porvencer')",'g-a',nPV)
+    +it('fa-magnifying-glass','Buscar','buscarMov()','g-b');
+  if(cord)g+=it('fa-chart-pie','Tablero',"irTabMov('tablero')",'g-p')
+    +it('fa-clipboard-list','Planeación',"irTabMov('planeacion')",'g-t')
+    +it('fa-list-check','Seguimiento',"irTabMov('seguimiento')",'g-g')
+    +it('fa-users','Personal',"openModal('modal-personal')",'g-b');
+  $('mv-grid').innerHTML=g;
+  $('mv-res').innerHTML=`<button class="mv-res-c" onclick="irSolMov('_comp')"><i class="fa-solid fa-arrow-down" style="color:#0891b2"></i><div><span>Por complementar</span><b>${nComp}</b></div></button>`
+    +`<button class="mv-res-c" onclick="irSolMov('_area')"><i class="fa-solid fa-arrow-up" style="color:#6d3cf0"></i><div><span>Con el área</span><b>${nArea}</b></div></button>`
+    +`<div class="mv-res-f">Atendidas<b>${nResp.toLocaleString('es-MX')}</b></div>`;
+  const por={};todas.forEach(s=>{if(s.area&&!esResuelta(s))por[s.area]=(por[s.area]||0)+1;});
+  const top=Object.entries(por).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  $('mv-areas').innerHTML=top.length?top.map(([a,n])=>`<button class="mv-fila" data-area="${esc(a)}" onclick="irSolMov('_area','',this.dataset.area)"><i class="fa-solid fa-building-user" style="color:#005eff"></i><span>${esc(a)}</span><b>${n}</b></button>`).join(''):'<div class="muted" style="padding:12px;text-align:center">Sin pendientes por área 🎉</div>';
+  const ult=todas.slice().sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')||(b.folio||'').localeCompare(a.folio||'')).slice(0,5);
+  $('mv-ultimas').innerHTML=ult.length?ult.map(s=>`<button class="mv-sol" onclick="verSolicitud('${s.id}')"><div class="r1"><strong>${esc(s.folio)}</strong>${estPill(s.estatus)}</div><div class="r2">${esc(s.nombre)}</div><div class="r3">${esc(s.tipo||'Por complementar')} · ${esc(s.comunidad||'')}${s.area?' → '+esc(s.area):''}</div></button>`).join(''):'<div class="muted" style="padding:12px;text-align:center">Aún no hay solicitudes.</div>';
+  const ini=nom.trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
+  $('mv-av').textContent=ini;$('mv-cn').textContent=nom;$('mv-cr').textContent=ROLES[PERFIL.rol]||PERFIL.rol;
+  $('mv-btn-personal').style.display=cord?'':'none';
+  renderBnav();
+}
+function aplicarModoMovil(){
+  const on=!!(NUBE&&PERFIL&&puede('analista','coordinador')&&esPantallaMovil());
+  const antes=document.body.classList.contains('app-mov');
+  document.body.classList.toggle('app-mov',on);
+  if(on){renderInicioMov();if(!antes)irTabMov('inicio');}
+  else if(antes){cerrarFormMov();const a=document.querySelector('.tab-section.active');if(a&&(a.id==='tab-inicio'||a.id==='tab-cuenta')){a.classList.remove('active');$('tab-solicitudes').classList.add('active');}}
+}
+if(window.matchMedia)window.matchMedia('(max-width:700px)').addEventListener('change',()=>{try{aplicarModoMovil();}catch(e){}});
 
 /* --- Informe estadístico (mismo formato que el de Protección Civil) --- */
 const MESES_AC=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
