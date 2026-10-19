@@ -4031,42 +4031,50 @@ function nuevaSolMov(){irTabMov('solicitudes');limpiarFormSolicitud();abrirFormM
 function buscarMov(){irSolMov('');setTimeout(()=>{const q=$('f-sol-q');q.scrollIntoView({block:'center'});q.focus();},50);}
 async function actualizarMov(){try{await refrescarNube(true);renderAC();toast('✅ Datos actualizados','ok');}catch(e){toast('⚠️ No se pudo actualizar','error');}}
 function renderBnav(){
-  const n=getSol().filter(esNuevaResp).length,cord=rolActual()==='coordinador';
+  const r=rolActual(),n=getSol().filter(esNuevaResp).length;
   const b=(t,ic,tx,fn,extra)=>`<button data-bt="${t}" onclick="${fn}"><i class="fa-solid ${ic}"></i><span>${tx}</span>${extra||''}</button>`;
-  $('bnav').innerHTML=b('inicio','fa-house','Inicio',"irTabMov('inicio')")
-    +b('solicitudes','fa-inbox','Solicitudes',"irSolMov('')")
-    +'<button class="fab" onclick="nuevaSolMov()" aria-label="Nueva solicitud"><i class="fa-solid fa-plus"></i></button>'
-    +(cord?b('tablero','fa-chart-pie','Tablero',"irTabMov('tablero')")
-          :b('resp','fa-envelope-open-text','Respuestas',"irSolMov('_resp')",n?`<em>${n}</em>`:''))
-    +b('cuenta','fa-user','Cuenta',"irTabMov('cuenta')");
+  const badge=n?`<em>${n}</em>`:'';
+  let cuarto;
+  if(r==='coordinador'||r==='admin')cuarto=b('tablero','fa-chart-pie','Tablero',"irTabMov('tablero')");
+  else if(r==='area')cuarto=b('resp','fa-hourglass-half','Por responder',"irSolMov('','abiertas')");
+  else cuarto=b('resp','fa-envelope-open-text','Respuestas',"irSolMov('_resp')",badge);
+  const fab=r==='area'
+    ?'<button class="fab" onclick="irSolMov(\'\',\'abiertas\')" aria-label="Por responder"><i class="fa-solid fa-comment-dots"></i></button>'
+    :'<button class="fab" onclick="nuevaSolMov()" aria-label="Nueva solicitud"><i class="fa-solid fa-plus"></i></button>';
+  $('bnav').innerHTML=b('inicio','fa-house','Inicio',"irTabMov('inicio')")+b('solicitudes','fa-inbox','Solicitudes',"irSolMov('')")+fab+cuarto+b('cuenta','fa-user','Cuenta',"irTabMov('cuenta')");
   const act=document.querySelector('.tab-section.active');if(act){const x=$('bnav').querySelector(`[data-bt="${act.id.replace('tab-','')}"]`);if(x)x.classList.add('on');}
 }
 function renderInicioMov(){
   if(!PERFIL)return;
-  const todas=getSol(),cord=rolActual()==='coordinador';
+  const todas=getSol(),r=rolActual();
   const nComp=todas.filter(s=>!s.tipo).length,nArea=todas.filter(s=>s.area&&!esResuelta(s)).length,nResp=todas.filter(esResuelta).length,nNuevas=todas.filter(esNuevaResp).length;
   const nVenc=todas.filter(s=>semaforo(s).estado==='vencida').length,nPV=todas.filter(s=>semaforo(s).estado==='porvencer').length;
   const nom=PERFIL.nombre||'';
-  $('mv-nombre').textContent=nom.split(' ')[0]||'';$('mv-rol').textContent=(ROLES[PERFIL.rol]||PERFIL.rol)+' · H. Ayuntamiento de Ixhuatlán del Café';
+  $('mv-nombre').textContent=nom.split(' ')[0]||'';
+  $('mv-rol').textContent=(r==='area'&&(PERFIL.areas||[]).length?(PERFIL.areas||[]).join(', '):(ROLES[PERFIL.rol]||PERFIL.rol)+' · H. Ayuntamiento de Ixhuatlán del Café');
   $('mv-total').textContent=todas.length.toLocaleString('es-MX');
+  $('mv-total').previousElementSibling.textContent=r==='area'?'Solicitudes turnadas a tu área':'Solicitudes registradas';
   const bell=$('mv-bell-n');bell.style.display=nNuevas?'':'none';bell.textContent=nNuevas;
   const it=(ic,tx,fn,g,n)=>`<button class="mv-it" onclick="${fn}"><span class="mv-ic ${g}"><i class="fa-solid ${ic}"></i>${n?`<b>${n}</b>`:''}</span>${tx}</button>`;
-  let g=it('fa-plus','Nueva solicitud','nuevaSolMov()','g-b')
-    +it('fa-pen-to-square','Por complementar',"irSolMov('_comp')",'g-t',nComp)
-    +it('fa-share-from-square','Con el área',"irSolMov('_area')",'g-p',nArea)
-    +it('fa-circle-check','Atendidas',"irSolMov('_resp')",'g-g')
-    +it('fa-envelope-open-text','Respuestas nuevas',"irSolMov('_resp')",'g-a',nNuevas)
-    +it('fa-triangle-exclamation','Vencidas',"irSolMov('','vencidas')",'g-r',nVenc)
-    +it('fa-hourglass-half','Por vencer',"irSolMov('','porvencer')",'g-a',nPV)
-    +it('fa-magnifying-glass','Buscar','buscarMov()','g-b');
-  if(cord)g+=it('fa-chart-pie','Tablero',"irTabMov('tablero')",'g-p')
-    +it('fa-clipboard-list','Planeación',"irTabMov('planeacion')",'g-t')
-    +it('fa-list-check','Seguimiento',"irTabMov('seguimiento')",'g-g')
-    +it('fa-users','Personal',"openModal('modal-personal')",'g-b');
+  const nueva=it('fa-plus','Nueva solicitud','nuevaSolMov()','g-b'),buscar=it('fa-magnifying-glass','Buscar','buscarMov()','g-b');
+  const comp=it('fa-pen-to-square','Por complementar',"irSolMov('_comp')",'g-t',nComp),area=it('fa-share-from-square','Con el área',"irSolMov('_area')",'g-p',nArea);
+  const aten=it('fa-circle-check','Atendidas',"irSolMov('_resp')",'g-g'),nuevas=it('fa-envelope-open-text','Respuestas nuevas',"irSolMov('_resp')",'g-a',nNuevas);
+  const venc=it('fa-triangle-exclamation','Vencidas',"irSolMov('','vencidas')",'g-r',nVenc),pv=it('fa-hourglass-half','Por vencer',"irSolMov('','porvencer')",'g-a',nPV);
+  const tabl=it('fa-chart-pie','Tablero',"irTabMov('tablero')",'g-p'),plan=it('fa-clipboard-list','Planeación',"irTabMov('planeacion')",'g-t'),seg=it('fa-list-check','Seguimiento',"irTabMov('seguimiento')",'g-g'),pers=it('fa-users','Personal',"openModal('modal-personal')",'g-b');
+  let g;
+  if(r==='area')g=it('fa-comment-dots','Por responder',"irSolMov('','abiertas')",'g-b',nArea)+aten+venc+pv+buscar;
+  else if(r==='recepcion')g=nueva+nuevas+aten+area+comp+venc+pv+buscar;
+  else if(r==='analista')g=nueva+comp+area+aten+nuevas+venc+pv+buscar;
+  else if(r==='coordinador')g=nueva+comp+area+aten+nuevas+venc+pv+buscar+tabl+plan+seg+pers;
+  else g=nueva+comp+area+aten+nuevas+venc+pv+buscar+tabl+plan+seg+pers+it('fa-list-ul','Catálogos','abrirCatalogos()','g-t')+it('fa-gear','Configuración',"openModal('modal-config')",'g-p');
   $('mv-grid').innerHTML=g;
-  $('mv-res').innerHTML=`<button class="mv-res-c" onclick="irSolMov('_comp')"><i class="fa-solid fa-arrow-down" style="color:#0891b2"></i><div><span>Por complementar</span><b>${nComp}</b></div></button>`
-    +`<button class="mv-res-c" onclick="irSolMov('_area')"><i class="fa-solid fa-arrow-up" style="color:#6d3cf0"></i><div><span>Con el área</span><b>${nArea}</b></div></button>`
+  const celda=(fn,ic,col,tx,v)=>`<button class="mv-res-c" onclick="${fn}"><i class="fa-solid ${ic}" style="color:${col}"></i><div><span>${tx}</span><b>${v}</b></div></button>`;
+  $('mv-res').innerHTML=(r==='area'
+      ?celda("irSolMov('','abiertas')",'fa-arrow-down','#6d3cf0','Por responder',nArea)+celda("irSolMov('','vencidas')",'fa-triangle-exclamation','#c0392b','Vencidas',nVenc)
+      :celda("irSolMov('_comp')",'fa-arrow-down','#0891b2','Por complementar',nComp)+celda("irSolMov('_area')",'fa-arrow-up','#6d3cf0','Con el área',nArea))
     +`<div class="mv-res-f">Atendidas<b>${nResp.toLocaleString('es-MX')}</b></div>`;
+  const verAreas=['admin','analista','coordinador'].includes(r);
+  $('mv-areas').style.display=verAreas?'':'none';$('mv-areas').previousElementSibling.style.display=verAreas?'':'none';
   const por={};todas.forEach(s=>{if(s.area&&!esResuelta(s))por[s.area]=(por[s.area]||0)+1;});
   const top=Object.entries(por).sort((a,b)=>b[1]-a[1]).slice(0,5);
   $('mv-areas').innerHTML=top.length?top.map(([a,n])=>`<button class="mv-fila" data-area="${esc(a)}" onclick="irSolMov('_area','',this.dataset.area)"><i class="fa-solid fa-building-user" style="color:#005eff"></i><span>${esc(a)}</span><b>${n}</b></button>`).join(''):'<div class="muted" style="padding:12px;text-align:center">Sin pendientes por área 🎉</div>';
@@ -4074,11 +4082,11 @@ function renderInicioMov(){
   $('mv-ultimas').innerHTML=ult.length?ult.map(s=>`<button class="mv-sol" onclick="verSolicitud('${s.id}')"><div class="r1"><strong>${esc(s.folio)}</strong>${estPill(s.estatus)}</div><div class="r2">${esc(s.nombre)}</div><div class="r3">${esc(s.tipo||'Por complementar')} · ${esc(s.comunidad||'')}${s.area?' → '+esc(s.area):''}</div></button>`).join(''):'<div class="muted" style="padding:12px;text-align:center">Aún no hay solicitudes.</div>';
   const ini=nom.trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
   $('mv-av').textContent=ini;$('mv-cn').textContent=nom;$('mv-cr').textContent=ROLES[PERFIL.rol]||PERFIL.rol;
-  $('mv-btn-personal').style.display=cord?'':'none';
+  $('mv-btn-personal').style.display=(r==='coordinador'||r==='admin')?'':'none';
   renderBnav();
 }
 function aplicarModoMovil(){
-  const on=!!(NUBE&&PERFIL&&puede('analista','coordinador')&&esPantallaMovil());
+  const on=!!(NUBE&&PERFIL&&esPantallaMovil());
   const antes=document.body.classList.contains('app-mov');
   document.body.classList.toggle('app-mov',on);
   if(on){renderInicioMov();if(!antes)irTabMov('inicio');}
